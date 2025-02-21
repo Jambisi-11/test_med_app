@@ -45,8 +45,19 @@
 /* Styles for the signup form section */
 .signup-form {
     grid-column: 2 / 4; /* Span from second to fourth column */
+    
+}
+.signup-form h1{
+margin-left: 3em;
 }
 
+.signup-form p{
+    margin-left: 3.5em;
+    }
+    
+.linklog a{
+ color: #007bff;
+}
 /* Styles for the overall signup container */
 .signup {
     flex: 1; /* Use flexible layout to fill available space */
@@ -71,7 +82,7 @@
 
 /* Styles for form groups in the signup form */
 .form-group {
-    margin-bottom: 20px; /* Add bottom margin to form groups */
+    margin-bottom: 3px; /* Add bottom margin to form groups */
 }
 
 .form-group label {
@@ -107,11 +118,13 @@
 /* Styles for primary button in the signup form */
 .btn-primary {
     background-color: #007bff; /* Set background color for primary button */
-    color: #fff; /* Set text color for primary button */
+    color: #fff; 
+    width: 20em;
 }
 
 /* Styles for danger button in the signup form */
 .btn-danger {
     background-color: #dc3545; /* Set background color for danger button */
     color: #fff; /* Set text color for danger button */
+    width: 20em;
 }
