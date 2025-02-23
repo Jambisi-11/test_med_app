@@ -1,0 +1,42 @@
+/* Styles for the entire notification page */
+.notification-container {
+    
+    
+    
+    
+    position: relative; /* Ensures proper positioning */
+}
+
+/* Styles for the appointment card */
+.appointment-card {
+    background: rgb(58, 55, 245); /* Blue card background */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 320px;
+    opacity: 90%;
+
+    /* Keep the card fixed at a specific position */
+    position: fixed;
+    top: 75%; /* Adjust to move up/down */
+    left: 13%; 
+    transform: translate(-50%, -50%); /* Centers the card */
+}
+
+/* Title inside the card */
+.appointment-card__title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: white;
+    text-decoration: underline;
+    text-align: center;
+}
+
+/* Text inside the card */
+.appointment-card__message {
+    font-size: 16px;
+    margin: 5px 0;
+    color: white;
+}

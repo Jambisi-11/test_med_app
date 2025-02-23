@@ -6,10 +6,12 @@ import SignUp from './Components/Sign up/Sign_Up';  // Fixed folder name
 import Login from './Components/Login/Login';
 import InstantConsultation  from './Components/InstantConsultationBooking/InstantConsultation'
 import BookingConsultation from './Components/BookingConsultation'
+import Notification from './Components/Notification/Notification';
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Notification>
         <Navbar />
         <Routes>
           <Route path="/" element={<Landing_Page />} />
@@ -19,6 +21,7 @@ function App() {
           <Route path="/booking-consultation" element={< BookingConsultation />} /> 
 
         </Routes>
+        </Notification>
       </BrowserRouter>
     </div>
   );
