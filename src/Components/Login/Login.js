@@ -93,11 +93,11 @@ const Login = () => {
            
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                {/* Input field for email */}
+             
                 <input 
-                  value={email} 
+                  value={password} 
                   onChange={(e) => setPassword(e.target.value)} 
-                  type="pasword" 
+                  type="password" 
                   name="password" 
                   id="password" 
                   className="form-control" 

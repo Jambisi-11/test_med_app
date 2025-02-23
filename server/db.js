@@ -1,28 +1,39 @@
 const mongoose = require('mongoose');
-const mongoURI =  "mongodb://root:OB9RPm2XAWu5F7DaRGIpBRXB@172.21.102.115:27017";
 
-const connectToMongo = async (retryCount) => {
+// Suppress the strictQuery warning
+mongoose.set('strictQuery', false);
+
+const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/stayhealthybeta1";
+
+const connectToMongo = async (retryCount = 0) => {
     const MAX_RETRIES = 3;
-    const count = retryCount ?? 0;
+
     try {
-        await mongoose.connect(mongoURI, { dbName: 'stayhealthybeta1'});
-        console.info('Connected to Mongo Successfully')
-
-        return;
+        await mongoose.connect(mongoURI, {
+            serverSelectionTimeoutMS: 30000, // 30 seconds timeout
+        });
+        console.info('✅ Connected to MongoDB Successfully');
     } catch (error) {
-        console.error(error);
+        console.error('❌ MongoDB Connection Error:', error.message);
 
-        const nextRetryCount = count + 1;
-
-        if (nextRetryCount >= MAX_RETRIES) {
-            throw new Error('Unable to connect to Mongo!');
+        if (retryCount + 1 >= MAX_RETRIES) {
+            console.error('❌ Max retries reached. Exiting process...');
+            process.exit(1);
         }
 
-        console.info(`Retrying, retry count: ${nextRetryCount}`)
-
-        return await connectToMongo(nextRetryCount);
-
+        console.info(`🔄 Retrying... Attempt ${retryCount + 1}`);
+        return await connectToMongo(retryCount + 1);
     }
 };
+
+// Handle unexpected disconnections
+mongoose.connection.on('disconnected', () => {
+    console.warn('⚠️ MongoDB disconnected. Attempting to reconnect...');
+    connectToMongo();
+});
+
+mongoose.connection.on('error', (err) => {
+    console.error('⚠️ MongoDB error:', err.message);
+});
 
 module.exports = connectToMongo;
