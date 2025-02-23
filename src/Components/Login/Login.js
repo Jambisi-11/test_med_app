@@ -42,6 +42,7 @@ const Login = () => {
       // If authentication token is received, store it in session storage
       sessionStorage.setItem('auth-token', json.authtoken);
       sessionStorage.setItem('email', email);
+      sessionStorage.setItem("name", json.name || "Unknown");
 
       // Redirect to home page and reload the window
       navigate('/');

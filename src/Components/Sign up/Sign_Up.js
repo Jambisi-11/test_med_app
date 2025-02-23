@@ -25,6 +25,7 @@ const Sign_Up = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
+                role: role, 
                 name: name,
                 email: email,
                 password: password,
@@ -156,7 +157,18 @@ const Sign_Up = () => {
                         </div>
 
                         <div className="form-group">
-                            <button type="submit" className="btn btn-danger ">Reset</button>
+                           {/* Reset Button */}
+                            <div className="form-group">
+                                <button type="button" className="btn btn-danger" onClick={() => {
+                                    setRole('');
+                                    setName('');
+                                    setPhone('');
+                                    setEmail('');
+                                    setPassword('');
+                                    setShowerr('');
+                                }}>Reset</button>
+                            </div>
+
                         </div>
                     </form>
 
