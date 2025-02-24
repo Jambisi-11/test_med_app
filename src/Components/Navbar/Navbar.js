@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import ReviewTable from "../Review Table/ReviewTable"; // Import the ReviewTable component
 import "./Navbar.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState(""); // Store logged-in user's name
+  const [showReviewTable, setShowReviewTable] = useState(false); // State to control ReviewTable visibility
+  const [showProfileMenu, setShowProfileMenu] = useState(false); // State to control profile menu visibility
 
   useEffect(() => {
     // Check if user is logged in by checking sessionStorage
@@ -26,6 +29,14 @@ const Navbar = () => {
     setIsLoggedIn(false);
     setUserName("");
     navigate("/login"); // Redirect to login page
+  };
+
+  const toggleReviewTable = () => {
+    setShowReviewTable((prev) => !prev); // Toggle ReviewTable visibility
+  };
+
+  const toggleProfileMenu = () => {
+    setShowProfileMenu((prev) => !prev); // Toggle profile menu visibility
   };
 
   return (
@@ -59,11 +70,27 @@ const Navbar = () => {
             <Link to="/appointments">Appointments</Link>
           </li>
 
+          {/* Add ReviewTable toggle link */}
+          {isLoggedIn && (
+            <li className="link">
+              <a href="#" onClick={toggleReviewTable}>
+                {showReviewTable ? "Close Review" : "Review"}
+              </a>
+            </li>
+          )}
+
           {isLoggedIn ? (
             <>
-              {/* Show username if logged in */}
-              <li className="link user-name">
-                Welcome, {userName}!
+              {/* Show username with a nested profile menu */}
+              <li className="link user-name" onClick={toggleProfileMenu}>
+                <span>Welcome, {userName}!</span>
+                {showProfileMenu && (
+                  <ul className="profile-menu">
+                    <li>
+                      <Link to="/profile">Your Profile</Link>
+                    </li>
+                  </ul>
+                )}
               </li>
               <li className="link">
                 <button className="btn1 logout-btn" onClick={handleLogout}>
@@ -87,6 +114,13 @@ const Navbar = () => {
           )}
         </ul>
       </nav>
+
+      {/* Conditionally render the ReviewTable */}
+      {isLoggedIn && showReviewTable && (
+        <div className="review-table-modal">
+          <ReviewTable />
+        </div>
+      )}
     </div>
   );
 };

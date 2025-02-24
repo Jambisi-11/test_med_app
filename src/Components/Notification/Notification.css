@@ -40,3 +40,7 @@
     margin: 5px 0;
     color: white;
 }
+
+.appointment-card__content p{
+    color: white;
+}
