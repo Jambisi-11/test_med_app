@@ -336,7 +336,7 @@ router.put('/update', [
     validateRequest(req, res); // Validate request
 
     try {
-        const { name, phone } = req.body;
+        const { name, phone, role } = req.body; // ✅ Get role from request
         const email = req.headers.email;
 
         if (!email) {
@@ -351,9 +351,10 @@ router.put('/update', [
 
         user.name = name;
         user.phone = phone;
+        user.role = role || user.role; // ✅ Ensure role is always present
         await user.save();
 
-        // Find and update profile
+        // Find and update profile (if exists)
         const profile = await Profile.findOne({ email });
         if (profile) {
             profile.name = name;
@@ -362,16 +363,17 @@ router.put('/update', [
         }
 
         // Generate new JWT token
-        const payload = { user: { id: user.id } };
+        const payload = { user: { id: user.id, role: user.role } }; // ✅ Include role in JWT
         const authtoken = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
 
-        res.json({ authtoken });
+        res.json({ authtoken, name: user.name, phone: user.phone, role: user.role }); // ✅ Return updated user details
 
     } catch (error) {
         console.error('Update error:', error.message);
         res.status(500).json({ error: "Internal Server Error", details: error.message });
     }
 });
+
 
 // Route 4: Fetch user data - GET: /api/auth/user
 router.get('/user', async (req, res) => {

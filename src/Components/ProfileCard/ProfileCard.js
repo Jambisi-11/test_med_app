@@ -1,11 +1,12 @@
+
 import React, { useEffect, useState } from "react";
 import { API_URL } from "../../config";
 import { useNavigate } from "react-router-dom";
-import './ProfileCard.css'
+import './ProfileCard.css';
 
 const ProfileCard = () => {
-    const [userDetails, setUserDetails] = useState({});
-    const [updatedDetails, setUpdatedDetails] = useState({});
+    const [userDetails, setUserDetails] = useState({ role: "" });
+    const [updatedDetails, setUpdatedDetails] = useState({ role: "" });
     const [editMode, setEditMode] = useState(false);
     const navigate = useNavigate();
 
@@ -60,43 +61,47 @@ const ProfileCard = () => {
 
     // Handle form submission when saving changes
     const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-          const authtoken = sessionStorage.getItem("auth-token");
-          const email = sessionStorage.getItem("email");
-  
-          const response = await fetch(`${API_URL}/api/auth/update`, {  
-              method: "PUT",
-              headers: {
-                  "Authorization": `Bearer ${authtoken}`,
-                  "Content-Type": "application/json",
-                  "Email": email,
-              },
-              body: JSON.stringify(updatedDetails),
-          });
-  
-          const responseData = await response.json(); // Parse response
-          console.log("Response Data:", responseData); // Log response
-  
-          if (response.ok) {
-              sessionStorage.setItem("name", responseData.name);
-              sessionStorage.setItem("phone", responseData.phone);
-              setUserDetails(responseData);  // Update state
-              setEditMode(false);
-              alert("Record was successfully updated!");
-              
-              // Fetch updated user profile
-              fetchUserProfile();
-          } else {
-              throw new Error(`Failed to update profile: ${responseData.message || "Unknown error"}`);
-          }
-      } catch (error) {
-          console.error("Update Error:", error);
-          alert("An error occurred while updating the profile.");
-      }
-  };
-  
-  
+        e.preventDefault();
+        try {
+            const authtoken = sessionStorage.getItem("auth-token");
+            const email = sessionStorage.getItem("email");
+    
+            // ✅ Ensure role is included in the request
+            const userDataWithRole = {
+                ...updatedDetails,
+                role: updatedDetails.role || userDetails.role || "Patient" // Default to "Patient"
+            };
+    
+            const response = await fetch(`${API_URL}/api/auth/update`, {  
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${authtoken}`,
+                    "Content-Type": "application/json",
+                    "Email": email,
+                },
+                body: JSON.stringify(userDataWithRole),
+            });
+    
+            const responseData = await response.json();
+            console.log("Update Response Data:", responseData);
+    
+            if (response.ok) {
+                sessionStorage.setItem("name", responseData.name);
+                sessionStorage.setItem("phone", responseData.phone);
+                sessionStorage.setItem("role", responseData.role); // ✅ Store role in session
+                setUserDetails(responseData);
+                setEditMode(false);
+                alert("Record was successfully updated!");
+                fetchUserProfile();
+            } else {
+                throw new Error(`Failed to update profile: ${responseData.message || "Unknown error"}`);
+            }
+        } catch (error) {
+            console.error("Update Error:", error);
+            alert("An error occurred while updating the profile.");
+        }
+    };
+    
     return (
         <div className="profile-container">
             {editMode ? (
