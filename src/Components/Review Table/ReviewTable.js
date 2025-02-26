@@ -1,44 +1,46 @@
 
 
-// import React, { useState } from "react";
+
+// import React, { useState, useEffect } from "react";
 // import "./ReviewTable.css";
 // import ReviewForm from "../ReviewForm/ReviewForm";
 
 // const ReviewTable = () => {
-//   // Fetch all appointments from localStorage
 //   const storedData = localStorage.getItem("appointments");
 //   const initialAppointments = storedData ? JSON.parse(storedData) : [];
 
-//   // Log the fetched data for debugging
 //   console.log("Fetched Appointments:", initialAppointments);
 
-//   // Ensure appointments is always an array
 //   const [appointments, setAppointments] = useState(initialAppointments);
 //   const [selectedAppointment, setSelectedAppointment] = useState(null);
+//   const [showTable, setShowTable] = useState(true); // State to toggle visibility
 
-//   // Handle feedback submission
 //   const handleFeedbackSubmit = (name, feedback, rating) => {
 //     if (!selectedAppointment) return;
 
-//     // Debug: Log submitted feedback
 //     console.log("Submitted Feedback:", { name, feedback, rating });
 
-//     // Update the appointment with feedback
 //     const updatedAppointments = appointments.map((appointment) =>
 //       appointment.id === selectedAppointment.id
 //         ? { ...appointment, feedback, rating, patientName: name }
 //         : appointment
 //     );
 
-//     // Save updated appointments to localStorage
 //     localStorage.setItem("appointments", JSON.stringify(updatedAppointments));
 //     setAppointments(updatedAppointments);
-//     setSelectedAppointment(null); // Close the feedback form
+//     setSelectedAppointment(null);
 //   };
+
+//   if (!showTable) return null; // Remove table completely when closed
 
 //   return (
 //     <div className="review-table-container">
-//       <h2>Review Appointments</h2>
+//       <div className="table-header">
+//         <h2>Review Appointments</h2>
+//         <button className="close-btn" onClick={() => setShowTable(false)}>
+//           ✖
+//         </button>
+//       </div>
 
 //       {appointments.length === 0 ? (
 //         <p>No appointments found.</p>
@@ -87,7 +89,6 @@
 //         </table>
 //       )}
 
-//       {/* Feedback Form Modal */}
 //       {selectedAppointment && (
 //         <div className="feedback-modal">
 //           <div className="feedback-modal-content">
@@ -110,46 +111,47 @@
 
 
 
-
 import React, { useState, useEffect } from "react";
 import "./ReviewTable.css";
 import ReviewForm from "../ReviewForm/ReviewForm";
+import Navbar from "../Navbar/Navbar"; // Import the Navbar component
 
 const ReviewTable = () => {
-  // Fetch all appointments from localStorage
   const storedData = localStorage.getItem("appointments");
   const initialAppointments = storedData ? JSON.parse(storedData) : [];
 
-  // Log the fetched data for debugging
   console.log("Fetched Appointments:", initialAppointments);
 
-  // Ensure appointments is always an array
   const [appointments, setAppointments] = useState(initialAppointments);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [showTable, setShowTable] = useState(true); // State to toggle visibility
 
-  // Handle feedback submission
   const handleFeedbackSubmit = (name, feedback, rating) => {
     if (!selectedAppointment) return;
 
-    // Debug: Log submitted feedback
     console.log("Submitted Feedback:", { name, feedback, rating });
 
-    // Update the appointment with feedback
     const updatedAppointments = appointments.map((appointment) =>
       appointment.id === selectedAppointment.id
         ? { ...appointment, feedback, rating, patientName: name }
         : appointment
     );
 
-    // Save updated appointments to localStorage
     localStorage.setItem("appointments", JSON.stringify(updatedAppointments));
     setAppointments(updatedAppointments);
-    setSelectedAppointment(null); // Close the feedback form
+    setSelectedAppointment(null);
   };
+
+  if (!showTable) return <Navbar />; // Return Navbar when table is closed
 
   return (
     <div className="review-table-container">
-      <h2>Review Appointments</h2>
+      <div className="table-header">
+        <h2>Review Appointments</h2>
+        <button className="close-btn" onClick={() => setShowTable(false)}>
+          ✖
+        </button>
+      </div>
 
       {appointments.length === 0 ? (
         <p>No appointments found.</p>
@@ -198,7 +200,6 @@ const ReviewTable = () => {
         </table>
       )}
 
-      {/* Feedback Form Modal */}
       {selectedAppointment && (
         <div className="feedback-modal">
           <div className="feedback-modal-content">

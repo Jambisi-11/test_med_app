@@ -65,3 +65,45 @@
     border-radius: 8px;
     width: 400px;
   }
+
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 100%;
+  }
+
+  .close-btn {
+    background: red;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20%; 
+    position: absolute;
+    top: 10%;
+    left: 95%;
+    transform: translate(-50%, -50%); /* Centers the button */
+}
+
+  
+  .show-table-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+  }
+  
+  .show-table-btn:hover {
+    /* background-color: #0056b3; */
+  }

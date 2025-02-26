@@ -1,6 +1,6 @@
 /* Styles for the main container */
 .container {
-    max-width: 900px; /* Maximum width of the container */
+    max-width: 90px; /* Maximum width of the container */
     margin: 0 auto; /* Center the container horizontally */
     padding: 40px; /* Padding inside the container */
     margin-top: 10%; /* Top margin of 10% */

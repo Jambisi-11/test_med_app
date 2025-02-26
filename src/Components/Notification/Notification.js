@@ -245,7 +245,7 @@ const Notification = ({ children }) => {
       )}
 
       {isLoggedIn && !appointmentData && (
-        <p className="no-appointment">No appointment found.</p>
+        <p className="no-appointment"></p>
       )}
     </div>
   );

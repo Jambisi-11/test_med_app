@@ -93,11 +93,13 @@ margin-left: 3em;
 
 /* Styles for form controls in the signup form */
 .form-control {
-    width: 40%; /* Set width of form controls */
-    padding: 8px; /* Add padding inside form controls */
-    font-size: 16px; /* Set font size */
-    border: 1px solid #ccc; /* Add border with color */
-    border-radius: 4px; /* Add border radius for rounded corners */
+    width: 100%;  /* Makes input take full width of parent */
+    max-width: 300px; /* Prevents it from getting too wide */
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
 }
 
 /* Styles for button group in the signup form */
@@ -119,12 +121,12 @@ margin-left: 3em;
 .btn-primary {
     background-color: #007bff; /* Set background color for primary button */
     color: #fff; 
-    width: 20em;
+    width: 19em;
 }
 
 /* Styles for danger button in the signup form */
 .btn-danger {
     background-color: #dc3545; /* Set background color for danger button */
     color: #fff; /* Set text color for danger button */
-    width: 20em;
+    width: 19em;
 }
