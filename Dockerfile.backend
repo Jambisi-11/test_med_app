@@ -1,0 +1,18 @@
+# Use Node.js image for the backend
+FROM node:18-alpine AS backend
+
+# Set the working directory for the backend
+WORKDIR /backend
+
+# Copy backend package.json and install dependencies
+COPY server/package*.json ./
+RUN npm install --production
+
+# Copy backend source code
+COPY server/ ./
+
+# Expose the backend port
+EXPOSE 8181
+
+# Command to run the backend server
+CMD ["node", "index.js"]

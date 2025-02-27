@@ -1,0 +1,14 @@
+FROM node:18-alpine AS build
+
+WORKDIR /frontend
+
+# Copy frontend package.json and install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy frontend source code and build it
+COPY src/ ./src/
+COPY public/ ./public/
+RUN npm run build  # Build the React app
+
+# The output will be in the /frontend/build folder
