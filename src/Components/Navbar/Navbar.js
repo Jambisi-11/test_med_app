@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ReviewTable from "../Review Table/ReviewTable"; // Import the ReviewTable component
 import "./Navbar.css";
-import ReportsLayout from "../ReportsLayout/ReportsLayout";
-import InstantConsultation from "../InstantConsultationBooking/InstantConsultation";
+// import ReportsLayout from "../ReportsLayout/ReportsLayout";
+// import InstantConsultation from "../InstantConsultationBooking/InstantConsultation";
 
 
 const Navbar = () => {
