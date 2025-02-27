@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ReviewTable from "../Review Table/ReviewTable"; // Import the ReviewTable component
 import "./Navbar.css";
+import ReportsLayout from "../ReportsLayout/ReportsLayout";
+import InstantConsultation from "../InstantConsultationBooking/InstantConsultation";
+
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -35,10 +38,25 @@ const Navbar = () => {
     setShowReviewTable((prev) => !prev); // Toggle ReviewTable visibility
   };
 
-  const toggleProfileMenu = () => {
-    setShowProfileMenu((prev) => !prev); // Toggle profile menu visibility
+  const toggleProfileMenu = (e) => {
+    e.stopPropagation(); // Prevent click from affecting other elements
+    setShowProfileMenu((prev) => !prev);
   };
-
+  
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".user-name")) {
+        setShowProfileMenu(false);
+      }
+    };
+  
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+  
   return (
     <div>
       <nav>
@@ -67,7 +85,7 @@ const Navbar = () => {
             <Link to="/">Home</Link>
           </li>
           <li className="link">
-            <Link to="/appointments">Appointments</Link>
+            <Link to="/instant-consultation">Appointments</Link>
           </li>
 
           {/* Add ReviewTable toggle link */}
@@ -82,17 +100,19 @@ const Navbar = () => {
           {isLoggedIn ? (
             <>
               {/* Show username with a nested profile menu */}
-              <li className="link user-name" onClick={toggleProfileMenu}>
+              <li 
+                className={`link user-name ${showProfileMenu ? "active" : ""}`} 
+                onClick={toggleProfileMenu}
+              >
                 <span>Welcome, {userName}!</span>
-                {showProfileMenu && (
-                  <ul className="profile-menu">
-                    <li>
-                      <Link to="/profile">Your Profile</Link>
-                    </li>
-                    <li><Link to="/report">Report</Link></li>
-                  </ul>
-                )}
+                <ul className="profile-menu">
+                  <li><Link to="/profile">Your Profile</Link></li>
+                  <li><Link to="/reports">Your Reports</Link></li>
+
+                  
+                </ul>
               </li>
+
               <li className="link">
                 <button className="btn1 logout-btn" onClick={handleLogout}>
                   Logout

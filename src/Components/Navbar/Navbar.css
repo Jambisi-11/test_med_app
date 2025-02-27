@@ -1,7 +1,4 @@
-/** 
- * Following code has been commented with appropriate comments for your reference.
- * Styling for the Header Navbar
- */
+
 
 /* Styling for the main navigation bar */
 nav {
@@ -96,7 +93,57 @@ nav {
     padding: 0 1rem;
     color: #0d213f;
     transition: 0.3s;
+    
 }
+
+/* Profile menu hidden by default */
+.profile-menu {
+    position: absolute;
+    top: 100%; /* Position it below the user name */
+    left: 0;
+    width: 180px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 10px 0;
+    display: none; /* Hide by default */
+    z-index: 1000;
+}
+
+/* Ensure "Welcome, User!" stays in place */
+.user-name {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Show profile menu when the parent has active class */
+.user-name.active .profile-menu {
+    display: block;
+    margin-left: 1.5em;
+}
+
+/* Profile menu styling */
+.profile-menu li {
+    padding: 6px 15px;
+    list-style: none;
+    
+}
+
+/* Profile menu links */
+.profile-menu li a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    
+}
+
+/* Hover effect */
+.profile-menu li a:hover {
+    color: #2190ff;
+}
+
 
 /* Hover effect for individual links in the navigation */
 .link a:hover {
