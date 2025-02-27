@@ -1,7 +1,7 @@
 // const express = require('express');
 // const cors = require('cors');
 // const connectToMongo = require('./db');
-// const SomeModel = require('./models/User'); // Change from Data to User
+// const UserSchema = require('./models/User'); // Import the User model
 // const app = express();
 
 // app.set('view engine', 'ejs');
@@ -11,7 +11,8 @@
 
 // // Middleware
 // app.use(express.json());
-// app.use(cors({ origin: 'http://localhost:3000' })); // Allow frontend requests from localhost:3000
+// // app.use(cors({ origin: 'http://localhost:3000' })); // Allow frontend requests from localhost:3000
+// app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 // // Connect to MongoDB
 // connectToMongo();
@@ -22,7 +23,7 @@
 // // New route to fetch data
 // app.get('/api/data', async (req, res) => {
 //   try {
-//     const data = await SomeModel.find(); // Replace with your actual query
+//     const data = await UserSchema.find(); // Replace with your actual query
 //     res.json(data);
 //   } catch (err) {
 //     console.error('Error fetching data:', err);
@@ -40,22 +41,17 @@
 // });
 
 
-
 const express = require('express');
 const cors = require('cors');
 const connectToMongo = require('./db');
-const UserSchema = require('./models/User'); // Import the User model
+const path = require('path');
+
 const app = express();
-
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
-
 const PORT = process.env.PORT || 8181;
 
 // Middleware
 app.use(express.json());
-// app.use(cors({ origin: 'http://localhost:3000' })); // Allow frontend requests from localhost:3000
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors());
 
 // Connect to MongoDB
 connectToMongo();
@@ -63,17 +59,15 @@ connectToMongo();
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 
-// New route to fetch data
-app.get('/api/data', async (req, res) => {
-  try {
-    const data = await UserSchema.find(); // Replace with your actual query
-    res.json(data);
-  } catch (err) {
-    console.error('Error fetching data:', err);
-    res.status(500).json({ message: 'Server error' });
-  }
+// Serve static files from the React frontend build folder
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Catch-all route to serve React frontend for undefined routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
+// Root route (optional)
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
