@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from './Components/Navbar/Navbar';
-import Landing_Page from './Components/Landing_Page/LandingPage';
+import LandingPage from './Components/Landing_Page/Landing_Page';
 import SignUp from './Components/Sign up/Sign_Up';  // Fixed folder name
 import Login from './Components/Login/Login';
 import InstantConsultation  from './Components/InstantConsultationBooking/InstantConsultation'
@@ -17,7 +17,7 @@ function App() {
         <Notification>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Landing_Page />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/instant-consultation" element={<InstantConsultation />} />

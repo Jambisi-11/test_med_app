@@ -91,11 +91,18 @@ const Navbar = () => {
           {/* Add ReviewTable toggle link */}
           {isLoggedIn && (
             <li className="link">
-              <a href="#" onClick={toggleReviewTable}>
+              {/* <a href="#" onClick={toggleReviewTable}>
                 {showReviewTable ? "Close Review" : "Review"}
-              </a>
+              </a> */}
+              {/* <button onClick={toggleReviewTable} className="review-toggle-btn">
+                {showReviewTable ? "Close Review" : "Review"}
+              </button> */}
+              <span onClick={toggleReviewTable} className="review-toggle-btn" style={{ cursor: "pointer", hover:"blue" }}>
+                {showReviewTable ? "Close Review" : "Review"}
+              </span>
+
             </li>
-          )}
+          )} 
 
           {isLoggedIn ? (
             <>

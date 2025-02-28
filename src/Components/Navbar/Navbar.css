@@ -130,6 +130,18 @@ nav {
     
 }
 
+.review-toggle-btn {
+    background: white;
+    color: black;
+    
+}
+.review-toggle-btn:hover {
+    background: white;
+    color: rgb(82, 66, 224);
+    
+}
+
+
 /* Profile menu links */
 .profile-menu li a {
     display: block;
