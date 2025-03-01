@@ -1,5 +1,5 @@
 import React from "react"; // Importing the necessary modules from React library
-import { Link } from "react-router-dom"; // Importing the Link component from react-router-dom library
+// import { Link } from "react-router-dom"; // Importing the Link component from react-router-dom library
 import "./LandingPage.css"; // Importing the CSS styles for the LandingPage component
 
 // Defining the Function component LandingPage

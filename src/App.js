@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from './Components/Navbar/Navbar';
-import LandingPage from './Components/Landing_Page/Landing_Page';
+import LandingPage from './Components/LandingPage/LandingPage';
 import SignUp from './Components/Sign up/Sign_Up';  // Fixed folder name
 import Login from './Components/Login/Login';
 import InstantConsultation  from './Components/InstantConsultationBooking/InstantConsultation'

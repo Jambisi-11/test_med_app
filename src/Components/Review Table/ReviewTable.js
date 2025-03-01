@@ -1,7 +1,7 @@
 
 
 
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import "./ReviewTable.css";
 import ReviewForm from "../ReviewForm/ReviewForm";
 
